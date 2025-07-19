@@ -1,0 +1,8 @@
+- name: understanding the ansible role
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Say hello
+      debug:
+        msg: "Hello from role playbook"
