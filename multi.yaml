@@ -1,0 +1,41 @@
+- name: Install Apache
+  hosts: web
+  become: yes
+
+  vars:
+    apache_port: 8080
+    apache_conf_path: /etc/httpd/conf/httpd.conf
+    web_root: /var/www/html
+    local_index: index.html
+
+  tasks:
+    - name: Install Apache (httpd)
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Ensure httpd is started
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Copy index.html to web root
+      copy:
+        src: "{{ local_index }}"
+        dest: "{{ web_root }}/index.html"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Ensure the default Apache port is {{ apache_port }}
+      lineinfile:
+        path: "{{ apache_conf_path }}"
+        regexp: '^Listen '
+        insertafter: '^#Listen '
+        line: "Listen {{ apache_port }}"
+
+    - name: Restart Apache to apply port change
+      service:
+        name: httpd
+        state: restarted

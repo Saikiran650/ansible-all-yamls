@@ -1,0 +1,8 @@
+- name: gather IPv6 addresses
+  hosts: web
+
+  tasks:
+    - name: Display IPv6 addresses
+      debug:
+        var: ansible_facts.all_ipv6_addresses
+
