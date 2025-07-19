@@ -1,0 +1,12 @@
+- name: Understanding the command module
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Run uptime command
+      shell: uptime | cut -d" " -f4
+      register: result
+
+    - name: Display the output
+      debug:
+        var: result.stdoubt

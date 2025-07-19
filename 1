@@ -1,0 +1,7 @@
+- name: Understanding the reboot module
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: reboot module
+      reboot:
