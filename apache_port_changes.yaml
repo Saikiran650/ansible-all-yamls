@@ -1,0 +1,30 @@
+
+- name: Install and configure Apache web server
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install Apache (httpd)
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Ensure Apache listens on port 80
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^Listen 80'
+        line: Listen 80
+      notify: Restart Apache
+
+    - name: Ensure Apache also listens on port 8080
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        insertafter: '^Listen 80'
+        line: Listen 8080
+
+  handlers:
+    - name: Restart Apache
+      service:
+        name: httpd
+        state: restarted
+

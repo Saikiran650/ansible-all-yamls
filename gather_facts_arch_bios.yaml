@@ -1,0 +1,11 @@
+- name: Gather system facts from web hosts
+  hosts: web
+  gather_facts: yes   # <-- This ensures Ansible gathers all facts
+  tasks:
+    - name: Show system architecture
+      debug:
+        var: ansible_facts['architecture']
+
+    - name: Show BIOS date
+      debug:
+        var: ansible_facts['bios_date']

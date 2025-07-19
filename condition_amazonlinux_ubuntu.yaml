@@ -1,0 +1,23 @@
+---
+- name: Install Apache in Amazon Linux and Ubuntu
+  hosts: web
+  become: yes
+  gather_facts: yes  # Gather system facts to use distribution info
+
+  tasks:
+    - name: Install Apache on Amazon Linux
+      dnf:
+        name: httpd
+        state: present
+      when: ansible_facts['distribution'] == "Amazon"
+
+    - name: Update apt cache on Ubuntu
+      apt:
+        update_cache: yes
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: Install Apache on Ubuntu
+      apt:
+        name: apache2
+        state: present
+      when: ansible_facts['distribution'] == "Ubuntu"
