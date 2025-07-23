@@ -1,0 +1,13 @@
+---
+- name: Understanding the command module
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Run uptime using command module
+      command: uptime
+      register: result
+
+    - name: Displaying the output
+      debug:
+        var: result.stdout

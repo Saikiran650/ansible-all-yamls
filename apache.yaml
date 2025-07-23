@@ -1,0 +1,9 @@
+- name: Install Apache # Name of the play
+  hosts: web           # Target group (as defined in inventory)
+  become: yes          # Use privilege escalation (sudo)
+
+  tasks:
+    - name: Apache installation
+      dnf:
+        name: httpd
+        state: present 

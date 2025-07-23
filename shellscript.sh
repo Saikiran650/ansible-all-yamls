@@ -1,0 +1,15 @@
+
+---
+- name: Copy and run shell script on remote hosts
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Copy shell script to remote server
+      copy:
+        src: myshellscript.sh  # relative path
+        dest: /tmp/myshellscript.sh
+        mode: '0755'
+
+    - name: Run the shell script
+      shell: /tmp/myshellscript.sh

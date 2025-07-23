@@ -1,0 +1,5 @@
+# tasks file for apache
+- name: Install Apache (httpd)
+  dnf:
+    name: "{{ package }}"
+    state: present

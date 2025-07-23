@@ -1,0 +1,21 @@
+---
+- name: Understanding the command and shell modules
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Run uptime using command module (no pipes)
+      command: uptime
+      register: result_command
+
+    - name: Display result from command module
+      debug:
+        var: result_command.stdout
+
+    - name: Run uptime | cut -d" " -f4 using shell module
+      shell: uptime | cut -d" " -f4
+      register: result_shell
+
+    - name: Display result from shell module
+      debug:
+        var: result_shell.stdout
